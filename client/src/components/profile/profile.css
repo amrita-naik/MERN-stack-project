@@ -1,0 +1,10 @@
+.profile {
+  background-color: #282828;
+  padding: 15px 20px;
+  margin: 0 15px;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  border-radius: 20px;
+}

@@ -1,0 +1,10 @@
+.people {
+  background-color: #191919;
+  display: flex;
+  flex: 8;
+  margin-top: 75px;
+}
+
+.people h1 {
+  z-index: 20px;
+}

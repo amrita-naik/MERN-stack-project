@@ -1,0 +1,19 @@
+.main {
+  z-index: 20;
+  flex: 3;
+  color: white;
+  background-color: #191919;
+}
+
+.cards {
+  display: flex;
+  margin: 100px 10px 0 10px;
+}
+
+.card {
+  background-color: #282828;
+  margin: 10px 20px;
+  padding: 15px;
+  font-size: 18px;
+  border-radius: 20px;
+}

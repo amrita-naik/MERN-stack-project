@@ -1,0 +1,13 @@
+.notes {
+  background-color: #191919;
+  display: flex;
+  flex: 8;
+  margin-top: 75px;
+  color: white;
+}
+
+.note-btn {
+  height: 50px;
+  width: 100px;
+  cursor: pointer;
+}

@@ -1,0 +1,7 @@
+.main-side {
+  background-color: #121212;
+  flex: 1;
+  color: white;
+  z-index: 20;
+  margin-top: 75px;
+}
