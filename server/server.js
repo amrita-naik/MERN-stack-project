@@ -5,8 +5,9 @@ const TaskModel = require('./models/task.model')
 const NoteModel = require('./models/note.model')
 const cors = require('cors')
 
-const db = 'mongodb+srv://amrita:amrita@cluster0.6h9le.mongodb.net/react-project?retryWrites=true&w=majority'
+const db = 'mongodb://amrita:amrita@cluster0-shard-00-00.6h9le.mongodb.net:27017,cluster0-shard-00-01.6h9le.mongodb.net:27017,cluster0-shard-00-02.6h9le.mongodb.net:27017/react-project?ssl=true&replicaSet=atlas-5hqc7c-shard-0&authSource=admin&retryWrites=true&w=majority'
 mongoose.connect(db)
+    .then(console.log('mongo connected'))
 
 app.use(express.json())
 app.use(cors())
