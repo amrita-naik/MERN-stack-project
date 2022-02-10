@@ -3,15 +3,13 @@ function AddTask( {setText, text, createTask}) {
     return (
         
         <div>
-            <form className="add-form" onSubmit={createTask}>
-                <div className='form-control'>
-                    <input type='text' placeholder='Add Task' value={text}
+            <form className="form-control" onSubmit={createTask}>
+                <div className='add-task'>
+                    <textarea placeholder='Title' required className="input-title" value={text}
                     onChange={(e) => setText(e.target.value)} />
+                    <button className="custom-btn save-btn">Save</button>
                 </div>
-                
-                <input type='submit' value='Save Task' className='btn btn-block'></input>
             </form>
-            
         </div>
     )
 }

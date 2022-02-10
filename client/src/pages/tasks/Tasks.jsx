@@ -2,11 +2,15 @@ import './tasks.css'
 import { useState, useEffect } from 'react'
 import AddTask from './AddTask';
 import axios from 'axios'
+import { Check, Delete } from '@material-ui/icons'
 
 function Tasks() {
 
-    const [showAddTask ,setShowAddTask] = useState(false)
-    const [tasks, setTasks] = useState([]);
+    const [tasks, setTasks] = useState([
+        {
+            isCompleted: false,
+        }
+    ]);
     const [text, setText] = useState('');
 
     useEffect(() => {
@@ -29,21 +33,44 @@ function Tasks() {
         }  
     }
 
+    // const onCheck = () => {
+    //     setTasks(tasks.map((item) => {
+    //             return{
+    //                 ...item, completed: !item.completed,
+    //             };
+    //         return item;
+    //     }))
+    // }
+
+    const onCheck = index => {
+        const newTasks = [...tasks];
+        newTasks[index].isCompleted = true;
+        setTasks(newTasks);
+    };
+
     return (
-        <div className='todo'>
-            <button className="todo-btn" onClick={() => setShowAddTask(!showAddTask)}>Add Task +</button>
-            
-            {showAddTask && <AddTask setText={setText} text={text} createTask={createTask}/>}
-            <div className="usersDisplay">
-                <h2>Tasks:</h2>
-                {tasks.map((task) => {
-                return (
-                    <div>
-                        <h3>{task.text}</h3>
-                    </div>
-                );
-                })}
+        <div className='todo-container'>
+            <div className="todo-wrapper">
+                <h2>Add a Task</h2>
+                <AddTask setText={setText} text={text} createTask={createTask}/>
             </div>
+            
+            <div className="todo-wrapper">
+                <div className="tasksDisplay">
+                    <h2>Tasks:</h2>
+                    {tasks.map((task) => {
+                    return (
+                        <div className='task'>
+                            <p className='title'>{task.text}</p>
+                            <div className="task-icons">
+                                <Check className={`check-icon ${tasks.isCompleted ? "checked-task" : ''}`} onClick = {onCheck}/>
+                                <Delete className='delete-icon' />
+                            </div>
+                        </div>
+                    );
+                    })}
+                </div>
+            </div>   
         </div>
     )
 }
