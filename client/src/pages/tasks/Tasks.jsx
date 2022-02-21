@@ -2,15 +2,11 @@ import './tasks.css'
 import { useState, useEffect } from 'react'
 import AddTask from './AddTask';
 import axios from 'axios'
-import { Check, Delete } from '@material-ui/icons'
+import Task from './Task'
 
 function Tasks() {
 
-    const [tasks, setTasks] = useState([
-        {
-            isCompleted: false,
-        }
-    ]);
+    const [tasks, setTasks] = useState([]);
     const [text, setText] = useState('');
 
     useEffect(() => {
@@ -33,21 +29,6 @@ function Tasks() {
         }  
     }
 
-    // const onCheck = () => {
-    //     setTasks(tasks.map((item) => {
-    //             return{
-    //                 ...item, completed: !item.completed,
-    //             };
-    //         return item;
-    //     }))
-    // }
-
-    const onCheck = index => {
-        const newTasks = [...tasks];
-        newTasks[index].isCompleted = true;
-        setTasks(newTasks);
-    };
-
     return (
         <div className='todo-container'>
             <div className="todo-wrapper">
@@ -58,19 +39,13 @@ function Tasks() {
             <div className="todo-wrapper">
                 <div className="tasksDisplay">
                     <h2>Tasks:</h2>
-                    {tasks.map((task) => {
-                    return (
-                        <div className='task'>
-                            <p className='title'>{task.text}</p>
-                            <div className="task-icons">
-                                <Check className={`check-icon ${tasks.isCompleted ? "checked-task" : ''}`} onClick = {onCheck}/>
-                                <Delete className='delete-icon' />
-                            </div>
-                        </div>
-                    );
-                    })}
+                    {tasks.map((task) => (
+                        <Task  task = {task} 
+                        tasks={tasks} setTasks={setTasks}/>
+                    ))}
                 </div>
-            </div>   
+            </div>  
+               
         </div>
     )
 }

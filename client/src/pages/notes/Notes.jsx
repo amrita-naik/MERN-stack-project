@@ -5,7 +5,6 @@ import AddNote from './AddNote'
 import './notes.css'
 
 function Note() {
-    const [showAddNote, setShowAddNote] = useState(false)
     const [notes, setNotes] = useState([])
     const [title, setTitle] = useState('')
     const [text, setText] = useState('')
@@ -28,18 +27,18 @@ function Note() {
 
     return (
         <div className='notes'>
-            <button className='note-btn' onClick={() => setShowAddNote(!showAddNote)}>Add Note+</button>
-            {showAddNote && <AddNote createNote={createNote} title={title} setTitle={setTitle} text={text} setText={setText}/>}
-            <div>
-                <h2>Notes:</h2>
-                {notes.map((note) => {
-                    return(
-                        <div>
-                            <h3>{note.title}</h3>
-                            <p>{note.text}</p>
-                        </div>
-                    )
-                })}
+            <div className="notes-wrapper">
+                <AddNote createNote={createNote} title={title} setTitle={setTitle} text={text} setText={setText}/>
+                <div className='notes-container'>
+                    {notes.map((note) => {
+                        return(
+                            <div className='note'>
+                                <h3 className='note-title'>{note.title}</h3>
+                                <p className='note-info'>{note.text}</p>
+                            </div>
+                        )
+                    })}
+                </div>
             </div>
         </div>
     )

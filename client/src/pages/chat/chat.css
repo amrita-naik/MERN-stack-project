@@ -1,6 +1,11 @@
-.chat {
+.chat-container {
   background-color: #191919;
   display: flex;
   flex: 8;
   margin-top: 75px;
+}
+
+.chat-form-container {
+  border: 2px solid red;
+  width: 700px;
 }

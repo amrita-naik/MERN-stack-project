@@ -5,13 +5,13 @@ function AddNote({createNote, text, setText, title, setTitle}) {
     return (
         <div>
             <form onSubmit={createNote}>
-                <div className="form-control">
-                    <input 
+                <div className="note-form-control">
+                    <textarea className='note-title-input'
                         type="text" 
                         placeholder='Add Title' 
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}/>
-                    <input 
+                    <textarea  className='note-info-input'
                         type="text" 
                         placeholder='Add Text' 
                         value={text}
