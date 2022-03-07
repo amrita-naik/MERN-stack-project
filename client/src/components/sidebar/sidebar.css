@@ -20,6 +20,6 @@
   font-size: 45px !important;
 }
 
-.icon:active {
+.icon:hover {
   color: aqua;
 }

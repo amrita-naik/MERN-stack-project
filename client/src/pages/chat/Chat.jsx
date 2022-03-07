@@ -1,19 +1,23 @@
 import './chat.css'
+import send from '../../images/send.png'
+import { SendRounded } from '@material-ui/icons'
+
 function Chat() {
     return (
         <div className='chat-container'>
-            <div className="chat-messages"></div>
             <div className="chat-form-container">
                 <form className="chat-form">
                     <input
                         id="msg"
                         type="text"
                         placeholder="Enter Message"
-                        required
                         autoComplete="off"
                     />
-                    <button className="chat-btn-send">Send</button>
+                    <SendRounded className="chat-btn-send"/>
                 </form>
+            </div>
+            <div className="chat-groups">
+                <h2>Chat groups</h2>    
             </div>
         </div>
     )

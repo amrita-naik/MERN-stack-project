@@ -6,6 +6,44 @@
 }
 
 .chat-form-container {
-  border: 2px solid red;
-  width: 700px;
+  width: 70%;
+  position: relative;
+  background-color: #202020;
+}
+
+.chat-form input {
+  outline: none;
+  border: none;
+  position: absolute;
+  bottom: 0;
+  height: 50px;
+  width: 80%;
+  margin: 20px 0 20px 60px;
+  padding: 10px;
+  background-color: #121212;
+  border-radius: 7px;
+  border: 2px solid black;
+  font-size: 18px;
+  font-weight: 500;
+  color: white;
+}
+
+.chat-btn-send {
+  position: absolute;
+  bottom: 0;
+  right: 60px;
+  font-size: 50px !important;
+  margin: 20px 0;
+  cursor: pointer;
+  color: #a278e6;
+}
+
+.chat-groups {
+  width: 30%;
+}
+
+.chat-groups h2 {
+  color: white;
+  text-align: center;
+  padding-top: 15px;
 }

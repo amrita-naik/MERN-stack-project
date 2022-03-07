@@ -4,6 +4,7 @@
   flex: 8;
   margin-top: 75px;
   color: white;
+  position: relative;
 }
 
 .notes-wrapper {
@@ -36,6 +37,7 @@
   background-color: #242424;
   padding: 12px;
   margin-bottom: 10px;
+  min-height: 100px;
 }
 
 .note-form-control {
@@ -45,5 +47,10 @@
 
 .notes-container {
   padding: 15px;
+  position: absolute;
+  width: 100%;
+  top: 25%;
   display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
 }
