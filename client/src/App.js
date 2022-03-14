@@ -8,7 +8,13 @@ import Chat from './pages/chat/Chat';
 import NavBar from './components/navbar/NavBar'
 import SideBar from './components/sidebar/SideBar'
 
+import { io } from "socket.io-client";
+import {useEffect} from 'react'
+
+const socket = io.connect("http://localhost:3001");
+
 function App() {
+
   return (
     <div className="App">
       <Router >
@@ -21,7 +27,7 @@ function App() {
             <Route path='/people' element={<People />}/>
             <Route path='/notes' element={<Notes />}/>
             <Route path='/tasks' element={<Tasks />}/>
-            <Route path='/chat' element={<Chat />}/>
+            <Route path='/chat' element={<Chat socket={socket}/>}/>
           </Routes>
         </div>
       </Router>

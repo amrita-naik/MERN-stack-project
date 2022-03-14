@@ -28,7 +28,7 @@
   color: white;
 }
 
-.chat-btn-send {
+.chat-icon-send {
   position: absolute;
   bottom: 0;
   right: 60px;
@@ -36,6 +36,11 @@
   margin: 20px 0;
   cursor: pointer;
   color: #a278e6;
+}
+
+.chat-msgs {
+  color: white;
+  position: absolute;
 }
 
 .chat-groups {

@@ -4,13 +4,19 @@ const app = express()
 const TaskModel = require('./models/task.model')
 const NoteModel = require('./models/note.model')
 const cors = require('cors')
+const dotenv = require("dotenv")
+const {Server} = require('socket.io')
+const http = require('http')
 
-const db = 'mongodb://amrita:amrita@cluster0-shard-00-00.6h9le.mongodb.net:27017,cluster0-shard-00-01.6h9le.mongodb.net:27017,cluster0-shard-00-02.6h9le.mongodb.net:27017/react-project?ssl=true&replicaSet=atlas-5hqc7c-shard-0&authSource=admin&retryWrites=true&w=majority'
-mongoose.connect(db)
+dotenv.config();
+
+mongoose.connect(process.env.DB_URL)
     .then(console.log('mongo connected'))
 
 app.use(express.json())
 app.use(cors())
+
+const server = http.createServer(app)
 
 //tasks
 app.get('/api/get-tasks', (req, res) => {
@@ -49,6 +55,28 @@ app.post('/api/create-note', async (req, res) => {
     res.json(note)
 })
 
-app.listen(3001, (req, res) => {
+app.get('/api/chat', async (req, res) => {
+    console.log('chat page')
+})
+
+const io = new Server(server, {
+    cors: {
+      origin: "http://localhost:3000",
+    },
+  });
+  
+
+io.on('connection', (socket) => {
+
+    socket.on('send_msg', (data) => {
+        socket.emit('receive_msg', data)
+        console.log(data)
+    })
+})
+
+server.listen(3001, (req, res) => {
     console.log('server is running');
 })
+
+//socket io
+
