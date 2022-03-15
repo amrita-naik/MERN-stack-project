@@ -8,6 +8,7 @@ function Home() {
         <div className='home'>
             <Main />
             <MainSide />
+            
         </div>
     )
 }

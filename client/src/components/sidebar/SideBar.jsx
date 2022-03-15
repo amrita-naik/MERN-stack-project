@@ -21,6 +21,7 @@ function NavBar() {
             <Link to='/chat'>    
                 <Chat className='icon'/>
             </Link>
+            
         </div>
     )
 }
