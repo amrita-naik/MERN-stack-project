@@ -37,9 +37,6 @@ function Chat({socket, username, room}) {
         <div className='chat-container'>
             
             <div className="chat-window">
-                <div className="chat-header">
-                    <p>Live Chat</p>
-                </div>
                 <div className="chat-body">
                     <ScrollToBottom className="message-container">
                     {messageList.map((messageContent) => {
@@ -62,11 +59,12 @@ function Chat({socket, username, room}) {
                     })}
                     </ScrollToBottom>
                 </div>
-                <div className="chat-footer">
+
+                <div className="chat-input">
                     <input
                     type="text"
                     value={currentMessage}
-                    placeholder="Hey..."
+                    placeholder="Message"
                     onChange={(event) => {
                         setCurrentMessage(event.target.value);
                     }}
@@ -76,7 +74,7 @@ function Chat({socket, username, room}) {
                     />
                     <button onClick={sendMessage}>&#9658;</button>
                 </div>
-                </div>
+            </div>
         </div>
     )
 }
