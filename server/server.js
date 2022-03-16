@@ -1,21 +1,30 @@
 const express = require('express')
-const mongoose = require('mongoose')
 const app = express()
+
+const mongoose = require('mongoose')
 const TaskModel = require('./models/task.model')
 const NoteModel = require('./models/note.model')
+const User = require('./models/user.model')
 const cors = require('cors')
 const dotenv = require("dotenv")
 const {Server} = require('socket.io')
 const http = require('http')
 const jwt = require('jsonwebtoken')
+const CryptoJS = require("crypto-js");
+const UserModel = require('./models/user.model')
 
 dotenv.config();
-
-mongoose.connect(process.env.DB_URL)
-    .then(console.log('mongo connected'))
-
 app.use(express.json())
 app.use(cors())
+
+
+mongoose.connect(process.env.DB_URL, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+})
+    .then(console.log('mongo connected'))
+
+
 
 const server = http.createServer(app)
 
@@ -79,100 +88,131 @@ app.post('/api/create-note', async (req, res) => {
     res.json(note)
 })
 
+app.post("/api/refresh", (req, res) => {
+  //take the refresh token from the user
+  const refreshToken = req.body.token;
+
+  //send error if there is no token or it's invalid
+  if (!refreshToken) return res.status(401).json("You are not authenticated!");
+  if (!refreshTokens.includes(refreshToken)) {
+    return res.status(403).json("Refresh token is not valid!");
+  }
+  jwt.verify(refreshToken, "myRefreshSecretKey", (err, user) => {
+    err && console.log(err);
+    refreshTokens = refreshTokens.filter((token) => token !== refreshToken);
+
+    const newAccessToken = generateAccessToken(user);
+    const newRefreshToken = generateRefreshToken(user);
+
+    refreshTokens.push(newRefreshToken);
+
+    res.status(200).json({
+      accessToken: newAccessToken,
+      refreshToken: newRefreshToken,
+    });
+  });
+
+  //if everything is ok, create new access token, refresh token and send to user
+});
+
+const generateAccessToken = (user) => {
+  return jwt.sign({ id: user.id, isAdmin: user.isAdmin }, "mySecretKey", {
+    expiresIn: "5s",
+  });
+};
+
+const generateRefreshToken = (user) => {
+  return jwt.sign({ id: user.id, isAdmin: user.isAdmin }, "myRefreshSecretKey");
+};
+
+
+
+app.post("/api/login", (req, res) => {
+  const { username, password } = req.body;
+  const user = users.find((u) => {
+    return u.username === username && u.password === password;
+  });
+  if (user) {
+    //Generate an access token
+    const accessToken = generateAccessToken(user);
+    const refreshToken = generateRefreshToken(user);
+    refreshTokens.push(refreshToken);
+    res.json({
+      username: user.username,
+      isAdmin: user.isAdmin,
+      accessToken,
+      refreshToken,
+    });
+  } else {
+    res.status(400).json("Username or password incorrect!");
+  }
+});
+
+const verify = (req, res, next) => {
+  const authHeader = req.headers.authorization;
+  if (authHeader) {
+    const token = authHeader.split(" ")[1];
+
+    jwt.verify(token, "mySecretKey", (err, user) => {
+      if (err) {
+        return res.status(403).json("Token is not valid!");
+      }
+
+      req.user = user;
+      next();
+    });
+  } else {
+    res.status(401).json("You are not authenticated!");
+  }
+};
+
+app.delete("/api/users/:userId", verify, (req, res) => {
+  if (req.user.id === req.params.userId || req.user.isAdmin) {
+    res.status(200).json("User has been deleted.");
+  } else {
+    res.status(403).json("You are not allowed to delete this user!");
+  }
+});
+
+app.post("/api/logout", verify, (req, res) => {
+  const refreshToken = req.body.token;
+  refreshTokens = refreshTokens.filter((token) => token !== refreshToken);
+  res.status(200).json("You logged out successfully.");
+});
+
+
 //login
 
-app.post("/api/refresh", (req, res) => {
-    //take the refresh token from the user
-    const refreshToken = req.body.token;
-  
-    //send error if there is no token or it's invalid
-    if (!refreshToken) return res.status(401).json("You are not authenticated!");
-    if (!refreshTokens.includes(refreshToken)) {
-      return res.status(403).json("Refresh token is not valid!");
-    }
-    jwt.verify(refreshToken, "myRefreshSecretKey", (err, user) => {
-      err && console.log(err);
-      refreshTokens = refreshTokens.filter((token) => token !== refreshToken);
-  
-      const newAccessToken = generateAccessToken(user);
-      const newRefreshToken = generateRefreshToken(user);
-  
-      refreshTokens.push(newRefreshToken);
-  
-      res.status(200).json({
-        accessToken: newAccessToken,
-        refreshToken: newRefreshToken,
-      });
-    });
-  
-    //if everything is ok, create new access token, refresh token and send to user
-  });
-  
-  const generateAccessToken = (user) => {
-    return jwt.sign({ id: user.id, isAdmin: user.isAdmin }, "mySecretKey", {
-      expiresIn: "5s",
-    });
-  };
-  
-  const generateRefreshToken = (user) => {
-    return jwt.sign({ id: user.id, isAdmin: user.isAdmin }, "myRefreshSecretKey");
-  };
-  
-  
+  // app.post('/api/auth' , async (req, res) => {
+  //   const user = req.body
+  //   const newUser = new UserModel(user);
+  //   await newUser.save()
+  //   res.json(user)
+  // })
 
-  app.post("/api/login", (req, res) => {
-    const { username, password } = req.body;
-    const user = users.find((u) => {
-      return u.username === username && u.password === password;
-    });
-    if (user) {
-      //Generate an access token
-      const accessToken = generateAccessToken(user);
-      const refreshToken = generateRefreshToken(user);
-      refreshTokens.push(refreshToken);
-      res.json({
-        username: user.username,
-        isAdmin: user.isAdmin,
-        accessToken,
-        refreshToken,
-      });
-    } else {
-      res.status(400).json("Username or password incorrect!");
-    }
-  });
-  
-  const verify = (req, res, next) => {
-    const authHeader = req.headers.authorization;
-    if (authHeader) {
-      const token = authHeader.split(" ")[1];
-  
-      jwt.verify(token, "mySecretKey", (err, user) => {
-        if (err) {
-          return res.status(403).json("Token is not valid!");
+  app.post("/api/auth", async (req, res) => {
+    res.set('Content-Type', 'application/json');
+    const newUser = new UserModel({
+      username: req.body.username,
+      email: req.body.email,
+      password: CryptoJS.AES.encrypt(
+        CryptoJS.enc.Utf8.parse(req.body.password),
+        process.env.SECRET_KEY
+      ).toString(),
+    })
+    console.log(newUser)
+  })
+
+  app.get('/api/get-users', (req, res) => {
+    User.find({}, (err, result) => {
+        if(err){
+            res.json(err)
+        }else{
+            res.json(result)
         }
-  
-        req.user = user;
-        next();
-      });
-    } else {
-      res.status(401).json("You are not authenticated!");
-    }
-  };
-  
-  app.delete("/api/users/:userId", verify, (req, res) => {
-    if (req.user.id === req.params.userId || req.user.isAdmin) {
-      res.status(200).json("User has been deleted.");
-    } else {
-      res.status(403).json("You are not allowed to delete this user!");
-    }
-  });
-  
-  app.post("/api/logout", verify, (req, res) => {
-    const refreshToken = req.body.token;
-    refreshTokens = refreshTokens.filter((token) => token !== refreshToken);
-    res.status(200).json("You logged out successfully.");
-  });
-  
+    })
+})
+
 const io = new Server(server, {
     cors: {
       origin: "http://localhost:3000",

@@ -24,7 +24,7 @@ const socket = io.connect("http://localhost:3001");
 
 function App() {
 
-  const [user, setUser] = useState(null);
+const [user, setUser] = useState(null);
 const [username, setUsername] = useState("");
 const [password, setPassword] = useState("");
 const [error, setError] = useState(false);
@@ -109,7 +109,7 @@ const handleDelete = async (id) => {
         </div>
       </Router>
       ) : (
-        <Auth handleSubmit={handleSubmit} setUsername={setUsername} setPassword={setPassword} />
+        <Auth handleSubmit={handleSubmit} username={username} password={password} setUsername={setUsername} setPassword={setPassword} />
       )}
     </div>
   );

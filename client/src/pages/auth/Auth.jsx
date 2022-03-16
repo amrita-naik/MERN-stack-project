@@ -1,16 +1,27 @@
-import React from 'react'
+import axios from 'axios'
+import React, { useEffect, useState, useRef } from 'react'
 import './auth.css'
 
 function Auth({handleSubmit, setPassword, setUsername}) {
+  
+  const [newUserName, setNewUserName] = useState("")
+  const [newEmail, setNewEmail] = useState("")
+  const [newPassword, setNewPassword] = useState("")
+  const [userList, setUserList] = useState([])
 
-
-
+  const createUser = (e) => {
+    e.preventDefault();
+    axios.post('/auth', {newUserName, newEmail, newPassword})
+      .then((response) => {
+        setUserList([...userList, {newUserName, newEmail, newPassword}])
+      })
+  }
   return (
     <div className="auth">
       <div className="auth-container">
           <input type="checkbox" id="chk" aria-hidden="true" />
           <div className="signup">
-            <form>
+            <form onSubmit={createUser}>
               <label htmlFor="chk" aria-hidden="true">Sign up</label>
               <input className='auth-input' type="text" name="txt" placeholder="User name" required="" />
               <input className='auth-input' type="email" name="email" placeholder="Email" required="" />
