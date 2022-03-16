@@ -39,24 +39,18 @@ function Chat({socket, username, room}) {
             <div className="chat-window">
                 <div className="chat-body">
                     <ScrollToBottom className="message-container">
-                    {messageList.map((messageContent) => {
-                        return (
-                        <div
-                            className="message"
-                            id={username === messageContent.author ? "you" : "other"}
-                        >
-                            <div>
-                            <div className="message-content">
-                                <p>{messageContent.message}</p>
-                            </div>
-                            <div className="message-meta">
-                                <p id="time">{messageContent.time}</p>
-                                <p id="author">{messageContent.author}</p>
-                            </div>
-                            </div>
-                        </div>
-                        );
-                    })}
+                        {messageList.map((messageContent) => {
+                            return (
+                                <div className="message" id={username === messageContent.author ? "you" : "other"}>
+                                    <div className="message-content">
+                                        <p id="author">{messageContent.author}</p>
+                                        <p>{messageContent.message}</p>
+                                        <div className='message-time'><p id="time">{messageContent.time}</p></div>
+                                    </div>
+                                    
+                                </div>
+                            );
+                        })}
                     </ScrollToBottom>
                 </div>
 
@@ -72,7 +66,7 @@ function Chat({socket, username, room}) {
                         event.key === "Enter" && sendMessage();
                     }}
                     />
-                    <button onClick={sendMessage}>&#9658;</button>
+                    <div onClick={sendMessage}><SendRounded  className='chat-send-btn' /></div>
                 </div>
             </div>
         </div>

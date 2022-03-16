@@ -1,8 +1,9 @@
 import './people.css'
-function People() {
+
+function People({username}) {
     return (
         <div className='people'>
-            <h1>This will display the users</h1>
+            {username}
         </div>
     )
 }

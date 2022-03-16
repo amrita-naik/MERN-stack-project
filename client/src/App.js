@@ -101,7 +101,7 @@ const handleDelete = async (id) => {
           <Routes>
             
             <Route path='/' element={<Home />} />
-            <Route path='/people' element={<People />}/>
+            <Route path='/people' element={<People username={username}  />}/>
             <Route path='/notes' element={<Notes />}/>
             <Route path='/tasks' element={<Tasks />}/>
             <Route path='/chat' element={<Chat socket={socket} username={username} room={room}/>}/>

@@ -118,6 +118,8 @@ app.post("/api/refresh", (req, res) => {
     return jwt.sign({ id: user.id, isAdmin: user.isAdmin }, "myRefreshSecretKey");
   };
   
+  
+
   app.post("/api/login", (req, res) => {
     const { username, password } = req.body;
     const user = users.find((u) => {
