@@ -2,55 +2,44 @@ import axios from 'axios'
 import React, { useEffect, useState, useRef } from 'react'
 import './auth.css'
 
-function Auth({handleSubmit, setPassword, setUsername}) {
-  
-  const [newUserName, setNewUserName] = useState("")
-  const [newEmail, setNewEmail] = useState("")
-  const [newPassword, setNewPassword] = useState("")
-  const [userList, setUserList] = useState([])
+function Auth({room, handleLogin, setUser, username, setUsername, email, setEmail, password, setPassword, createUser}) {  
 
-  const createUser = (e) => {
-    e.preventDefault();
-    axios.post('/auth', {newUserName, newEmail, newPassword})
-      .then((response) => {
-        setUserList([...userList, {newUserName, newEmail, newPassword}])
-      })
-  }
+  
   return (
     <div className="auth">
       <div className="auth-container">
-          <input type="checkbox" id="chk" aria-hidden="true" />
-          <div className="signup">
-            <form onSubmit={createUser}>
-              <label htmlFor="chk" aria-hidden="true">Sign up</label>
-              <input className='auth-input' type="text" name="txt" placeholder="User name" required="" />
-              <input className='auth-input' type="email" name="email" placeholder="Email" required="" />
-              <input className='auth-input' type="password" name="pswd" placeholder="Password" required="" />
-              <button className='auth-btn'>Sign up</button>
-            </form>
-          </div>
-          <div className="login">
-            <form onSubmit={handleSubmit}>
-              <label htmlFor="chk" aria-hidden="true">Login</label>
-              <input
+        <input type="checkbox" id="chk"  aria-hidden='true' />
+        <div className="signup">
+          <form onSubmit={createUser}>
+            <label htmlFor="chk" >Sign up</label>
+            <input className='auth-input' type="text" placeholder="User name" value={username} onChange = {(e) => setUsername(e.target.value)}/>
+            <input className='auth-input' type="email" placeholder="Email" value={email} onChange = {(e) => setEmail(e.target.value)}/>
+            <input className='auth-input' type="password" placeholder="Password" value={password} onChange = {(e) => setPassword(e.target.value)} />
+            <button className='auth-btn'>Sign up</button>
+          </form>
+        </div>
+        <div className="login">
+          <form onSubmit={handleLogin}>
+            <label htmlFor="chk" aria-hidden="true">Login</label>
+            <input
               className='auth-input'
-                type="text"
-                placeholder="username"
-                required
-                onChange={(e) => setUsername(e.target.value)}
-              />
-              <input
+              type="text"
+              placeholder="username"
+              value={username} onChange = {(e) => setUsername(e.target.value)}
+              required
+            />
+            <input
               className='auth-input'
-                type="password"
-                placeholder="password"
-                required
-                onChange={(e) => setPassword(e.target.value)}
-              />
-              <button type="submit" className="auth-btn">
-                Login
-              </button>
-            </form>
-          </div>
+              type="password"
+              placeholder="password"
+              required
+              value={password} onChange = {(e) => setPassword(e.target.value)}
+            />
+            <button type="submit" className="auth-btn">
+              Login
+            </button>
+          </form>
+        </div>
       </div>
     </div>
 

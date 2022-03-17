@@ -18,7 +18,6 @@ function Note() {
 
     const createNote = (e) => {
         e.preventDefault()
-
         axios.post('/create-note', {title, text})
             .then((response) => {
                 setNotes([...notes, {title, text}])
