@@ -1,5 +1,6 @@
 import axios from 'axios'
 import React, { useEffect, useState, useRef } from 'react'
+
 import './auth.css'
 
 function Auth({room, handleLogin, setUser, username, setUsername, email, setEmail, password, setPassword, createUser}) {  

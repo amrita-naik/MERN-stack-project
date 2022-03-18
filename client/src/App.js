@@ -1,5 +1,5 @@
 import './App.css';
-import { Route, BrowserRouter as Router, Routes, Navigate } from 'react-router-dom';
+import { Route, BrowserRouter as Router, Routes, Navigate, useNavigate } from 'react-router-dom';
 import Home from './pages/home/Home';
 import People from './pages/people/People';
 import Notes from './pages/notes/Notes';
@@ -70,40 +70,43 @@ function App() {
       return Promise.reject(error);
     }
   );
+  
+  let navigate = useNavigate();
 
   const handleLogin = async (e) => {
 		e.preventDefault();
 		try {
       const res = await axios.post("/login", { username, password });
       setUser(res.data);
-			window.location = "/";
 
       socket.emit("join_room", room);
+      navigate('/')
   
 		} catch (error) {
       console.log(error)
 		}
 	};
 
-  console.log(user)
-
   return (
     <div className="App">
-        <Router >
-            <NavBar />
-            <div className="app-container">
-              <SideBar />
-              <Routes>
-                <Route path='/auth' element={ !user ? <Auth username={username} setUsername={setUsername} email={email} setEmail={setEmail} password={password} setPassword={setPassword}
-                 createUser={createUser} setUser={setUser} room={room} socket={socket} handleLogin={handleLogin} /> : <Navigate replace to='/' /> } />
-                {/* <Route exact path='/' element={ user ? <Home /> : <Navigate replace to="/auth" />} /> */}
-                <Route path='/people' element={<People  />}/>
-                <Route path='/notes' element={<Notes />}/>
-                <Route path='/tasks' element={<Tasks />}/>
-                <Route path='/chat' element={<Chat socket={socket} room={room} username={username}/>}/> 
-              </Routes>
-            </div>
-        </Router> 
+      <NavBar />
+      <div className="app-container">
+        <SideBar />
+        <Routes>
+          {!user &&
+            <Route path='/auth' element={ <Auth username={username} setUsername={setUsername} email={email} setEmail={setEmail} password={password} setPassword={setPassword}
+              createUser={createUser} setUser={setUser} room={room} socket={socket} handleLogin={handleLogin} />} />}
+          {user &&     
+          <>
+            <Route exact path='/' element={ <Home /> } />
+            <Route path='/people' element={<People  />}/>
+            <Route path='/notes' element={<Notes />}/>
+            <Route path='/tasks' element={<Tasks />}/>
+            <Route path='/chat' element={<Chat socket={socket} room={room} username={username}/>}/> 
+          </>
+          }
+        </Routes>
+      </div>
         
    </div>
   );
