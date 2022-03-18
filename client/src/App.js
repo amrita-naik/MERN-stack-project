@@ -27,6 +27,9 @@ function App() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [users, setUsers] = useState([])
+  const [error, setError] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [user, setUser] = useState(null);
 
   const createUser = async (e) => {
     e.preventDefault()
@@ -34,11 +37,8 @@ function App() {
       .then(() => {
         setUsers([...users, {username, email, password} ])
       })
+      
   }
-
-  const [error, setError] = useState(false);
-  const [success, setSuccess] = useState(false);
-  const [user, setUser] = useState(null);
 
   const refreshToken = async () => {
     try {
@@ -78,18 +78,26 @@ function App() {
 		try {
       const res = await axios.post("/login", { username, password });
       setUser(res.data);
-
       navigate('/')
-  
+      
 		} catch (error) {
       console.log(error)
 		}
 	};
+
+  const handleLogout = async (e) => {
+    e.preventDefault()
+    console.log('clicked')
+    setUser(null)
+  }
+
   socket.emit("join_room", room)
 
   return (
     <div className="App">
       <div className="app-container">
+        {user && <NavBar handleLogout={handleLogout} />}
+        {user && <SideBar />}
         <Routes>
           {!user &&
             <Route path='/auth' element={ <Auth username={username} setUsername={setUsername} email={email} setEmail={setEmail} password={password} setPassword={setPassword}
@@ -98,11 +106,11 @@ function App() {
           <Route path='/people' element={user ? <People /> : <Navigate replace to='/auth' /> } />   
           <Route path='/notes' element={user ? <Notes /> : <Navigate replace to='/auth' /> } />   
           <Route path='/tasks' element={user ? <Tasks /> : <Navigate replace to='/auth' /> } />   
-          <Route path='/chat' element={user ? <Chat socket={socket} room={room} username={username} /> : <Navigate replace to='/auth' /> } />   
+          <Route path='/chat' element={user ? <Chat socket={socket} setUsername={setUsername} room={room} username={username} /> : <Navigate replace to='/auth' /> } />   
           {user &&     
           <>
             <Route exact path='/' element={ <Home username={username} /> } />
-            <Route path='/people' element={<People  />}/>
+            <Route path='/people' element={<People />}/>
             <Route path='/notes' element={<Notes />}/>
             <Route path='/tasks' element={<Tasks />}/>
             <Route path='/chat' element={<Chat socket={socket} room={room} username={username}/>}/> 

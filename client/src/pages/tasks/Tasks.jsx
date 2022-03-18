@@ -33,9 +33,6 @@ function Tasks() {
     }
 
     return (
-        <>
-        <NavBar />
-        <SideBar />
         <div className='todo-container'>
             <div className="todo-wrapper">
                 <h2>Add a Task</h2>
@@ -52,7 +49,6 @@ function Tasks() {
                 </div>
             </div>  
         </div>
-        </>
     )
 }
 
