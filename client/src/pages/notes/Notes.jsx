@@ -3,6 +3,9 @@ import { useEffect } from 'react'
 import { useState } from 'react'
 import AddNote from './AddNote'
 import './notes.css'
+import NavBar from '../../components/navbar/NavBar'
+import SideBar from '../../components/sidebar/SideBar'
+
 
 function Note() {
     const [notes, setNotes] = useState([])
@@ -25,6 +28,9 @@ function Note() {
     }
 
     return (
+        <>
+        <NavBar />
+        <SideBar />
         <div className='notes'>
             <div className="notes-wrapper">
                 <AddNote createNote={createNote} title={title} setTitle={setTitle} text={text} setText={setText}/>
@@ -40,6 +46,7 @@ function Note() {
                 </div>
             </div>
         </div>
+        </>
     )
 }
 

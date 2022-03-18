@@ -79,26 +79,29 @@ function App() {
       const res = await axios.post("/login", { username, password });
       setUser(res.data);
 
-      socket.emit("join_room", room);
       navigate('/')
   
 		} catch (error) {
       console.log(error)
 		}
 	};
+  socket.emit("join_room", room)
 
   return (
     <div className="App">
-      <NavBar />
       <div className="app-container">
-        <SideBar />
         <Routes>
           {!user &&
             <Route path='/auth' element={ <Auth username={username} setUsername={setUsername} email={email} setEmail={setEmail} password={password} setPassword={setPassword}
               createUser={createUser} setUser={setUser} room={room} socket={socket} handleLogin={handleLogin} />} />}
+          <Route path='/' element={user ? <Home username={username} /> : <Navigate replace to='/auth' /> } />   
+          <Route path='/people' element={user ? <People /> : <Navigate replace to='/auth' /> } />   
+          <Route path='/notes' element={user ? <Notes /> : <Navigate replace to='/auth' /> } />   
+          <Route path='/tasks' element={user ? <Tasks /> : <Navigate replace to='/auth' /> } />   
+          <Route path='/chat' element={user ? <Chat socket={socket} room={room} username={username} /> : <Navigate replace to='/auth' /> } />   
           {user &&     
           <>
-            <Route exact path='/' element={ <Home /> } />
+            <Route exact path='/' element={ <Home username={username} /> } />
             <Route path='/people' element={<People  />}/>
             <Route path='/notes' element={<Notes />}/>
             <Route path='/tasks' element={<Tasks />}/>

@@ -3,6 +3,9 @@ import { useState, useEffect } from 'react'
 import AddTask from './AddTask';
 import axios from 'axios'
 import Task from './Task'
+import NavBar from '../../components/navbar/NavBar'
+import SideBar from '../../components/sidebar/SideBar'
+
 
 function Tasks() {
 
@@ -30,6 +33,9 @@ function Tasks() {
     }
 
     return (
+        <>
+        <NavBar />
+        <SideBar />
         <div className='todo-container'>
             <div className="todo-wrapper">
                 <h2>Add a Task</h2>
@@ -45,8 +51,8 @@ function Tasks() {
                     ))}
                 </div>
             </div>  
-               
         </div>
+        </>
     )
 }
 

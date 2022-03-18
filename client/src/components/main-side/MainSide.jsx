@@ -3,10 +3,10 @@ import './mainside.css'
 import Profile from '../profile/Profile'
 import Task from '../task/Task'
 
-function MainSide() {
+function MainSide({username}) {
     return (
         <div className='main-side'>
-           <Profile />
+           <Profile username={username}/>
            <Task />
         </div>
     )

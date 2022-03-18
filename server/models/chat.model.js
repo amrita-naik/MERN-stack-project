@@ -1,10 +1,10 @@
 const mongoose = require('mongoose')
 
 const ChatSchema = new mongoose.Schema({
-    username: {type: String, reqiured: true},
-    message: {type: String},
-    time: {type: Number}
-}, {collection: "chats", timestamps: true})
+    author: {type: String, reqiured: true},
+    message: {type: String, required: true},
+    time: {type: String, required: true}
+}, {collection: "chats"})
 
 const ChatModel = mongoose.model("Chat", ChatSchema)
 

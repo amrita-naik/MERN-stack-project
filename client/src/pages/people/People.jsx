@@ -2,6 +2,9 @@ import axios from 'axios'
 import { useEffect } from 'react'
 import { useState } from 'react'
 import './people.css'
+import NavBar from '../../components/navbar/NavBar'
+import SideBar from '../../components/sidebar/SideBar'
+
 
 function People() {
     const [users, setUsers] = useState([])
@@ -14,6 +17,9 @@ function People() {
     }, [])
 
 return (
+    <>
+    <NavBar />
+    <SideBar />
     <div className='people'>
         {users.map((user) => {
             return(
@@ -23,6 +29,7 @@ return (
             )
         })}
     </div>
+    </>
 )
     }
 

@@ -104,7 +104,7 @@ io.on('connection', (socket) => {
     })
 })
 //chats
-// app.use('/api', chatRoute)
+app.use('/api', chatRoute)
 
 server.listen(3001, (req, res) => {
     console.log('server is running');

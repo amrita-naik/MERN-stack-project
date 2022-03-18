@@ -2,11 +2,21 @@ import './chat.css'
 import { SendRounded } from '@material-ui/icons'
 import { useEffect, useState } from 'react'
 import ScrollToBottom from 'react-scroll-to-bottom'
+import NavBar from '../../components/navbar/NavBar'
+import SideBar from '../../components/sidebar/SideBar'
+import axios from 'axios'
 
 function Chat({socket, username, room}) {
 
     const [currentMessage, setCurrentMessage] = useState("");
     const [messageList, setMessageList] = useState([]);
+
+    useEffect(() => {
+        axios.get('/get-chats')
+            .then(response => {
+                setMessageList(response.data)
+            })
+    }, [])
 
     const sendMessage = async () => {
         if (currentMessage !== "") {
@@ -21,8 +31,12 @@ function Chat({socket, username, room}) {
           };
 
           await socket.emit("send_message", messageData);
-          setMessageList((list) => [...list, messageData]);
-          setCurrentMessage("");
+
+          axios.post('/chats', messageData)
+            .then(() => {      
+                setMessageList((list) => [...list, messageData]);
+                setCurrentMessage("");
+            })
         }
       };
     
@@ -32,8 +46,12 @@ function Chat({socket, username, room}) {
         });
       }, [socket]);
 
+      
 
     return (
+        <>
+        <NavBar />
+        <SideBar />
         <div className='chat-container'>
             
             <div className="chat-window">
@@ -70,6 +88,7 @@ function Chat({socket, username, room}) {
                 </div>
             </div>
         </div>
+        </>
     )
 }
 
