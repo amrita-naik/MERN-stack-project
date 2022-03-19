@@ -17,6 +17,7 @@ function Tasks() {
             .then((response) => {
                 setTasks(response.data)
             })
+            console.log(tasks)
     }, []);
 
     const createTask = (e) => {
@@ -43,7 +44,7 @@ function Tasks() {
                 <div className="tasksDisplay">
                     <h2>Tasks:</h2>
                     {tasks.map((task) => (
-                        <Task  task = {task} 
+                        <Task  task = {task} key={task._id}
                         tasks={tasks} setTasks={setTasks}/>
                     ))}
                 </div>

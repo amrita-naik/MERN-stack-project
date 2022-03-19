@@ -1,10 +1,10 @@
-.todo-container {
+.todo-container-main {
   display: flex;
   flex-direction: column;
   margin-top: 20px;
 }
-.todo1,
-.todo2 {
+.todo1-main,
+.todo2-main {
   background-color: #222;
   padding: 15px 20px;
   margin: 0 15px 20px;

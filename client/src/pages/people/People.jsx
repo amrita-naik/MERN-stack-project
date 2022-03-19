@@ -15,13 +15,16 @@ function People() {
 
 return (
     <div className='people'>
+        <div className='people-container' >
+        <h1>Users:</h1>
         {users.map((user) => {
             return(
-                <div >
-                    <h3 >{user.username}</h3>
-                </div>
+                    <div className='person'>
+                        <h3 >{user.username}</h3>
+                    </div>
             )
         })}
+        </div>
     </div>
 )
     }

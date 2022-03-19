@@ -5,6 +5,7 @@
   margin-top: 75px;
   color: white;
   position: relative;
+  overflow-y: scroll;
 }
 
 .notes-wrapper {

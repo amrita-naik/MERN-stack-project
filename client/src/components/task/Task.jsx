@@ -13,8 +13,8 @@ function Task() {
     }, []);
 
     return (
-        <div className='todo-container'>
-            <div className="todo1">
+        <div className='todo-container-main'>
+            <div className="todo1-main">
                 <h2>Upcoming Tasks:</h2>
                     {tasks.map((task) => {
                     return (
@@ -24,7 +24,7 @@ function Task() {
                     );
                     })}
             </div>
-            <div className="todo2">
+            <div className="todo2-main">
                 <h2>Finished Tasks:</h2>
                 <p>Lorem ipsum dolor sit amet.</p>
                 <p>Lorem ipsum dolor sit amet.</p>
