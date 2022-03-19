@@ -1,10 +1,9 @@
 import { Check, Delete } from '@material-ui/icons'
+import axios from 'axios'
 import './tasks.css'
 
 const Task = ({task,  tasks,setTasks}) => {
-
-    //const id = task._id
-
+    
     const onCheck = () => {
         setTasks(tasks.map(item => {
             if(item._id===task._id){
@@ -17,7 +16,10 @@ const Task = ({task,  tasks,setTasks}) => {
     }
 
     const deleteTask = (id) => {
-         setTasks(tasks.filter(task => task._id !== id));
+        axios.delete(`/delete-task/${id}`)
+        .then(() => {
+            setTasks(tasks.filter(task => task._id !== id));
+        })
        };
 
 return (

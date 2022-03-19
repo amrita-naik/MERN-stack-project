@@ -27,7 +27,10 @@ function Note() {
     }
 
     const deleteNote = (id) => {
-        setNotes(notes.filter(note => note._id !== id));
+        axios.delete(`/delete-note/${id}`)
+            .then(() => {
+                setNotes(notes.filter(note => note._id !== id));
+            })
       };
 
     return (

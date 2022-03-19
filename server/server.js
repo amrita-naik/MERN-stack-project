@@ -47,6 +47,22 @@ app.post('/api/create-task', async (req, res) => {
     res.json(task)
 })
 
+app.delete('/api/delete-task/:id', async (req, res) => {
+    TaskModel.deleteOne({_id: req.params.id}).then(
+        () => {
+          res.status(200).json({
+            message: 'Deleted!'
+          });
+        }
+      ).catch(
+        (error) => {
+          res.status(400).json({
+            error: error
+          });
+        }
+      );
+    });
+
 //notes
 app.get('/api/get-notes', (req, res) =>{
     NoteModel.find({}, (err, result) => {
@@ -66,6 +82,21 @@ app.post('/api/create-note', async (req, res) => {
     res.json(note)
 })
 
+app.delete('/api/delete-note/:id', (req, res) => {
+    NoteModel.deleteOne({_id: req.params.id}).then(
+      () => {
+        res.status(200).json({
+          message: 'Deleted!'
+        });
+      }
+    ).catch(
+      (error) => {
+        res.status(400).json({
+          error: error
+        });
+      }
+    );
+  });
 
 //users
 
