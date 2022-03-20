@@ -1,34 +1,29 @@
 .todo-container {
-  background-color: #191919;
+  background-color: var(--black-color2);
   display: flex;
   flex: 8;
   margin-top: 75px;
   color: white;
-  flex-direction: row;
-  justify-content: space-evenly;
-}
-
-.form-control input {
-  width: 300px;
-  height: 75px;
-}
-
-.todo-wrapper {
-  margin-top: 20px;
-  background-color: #282828;
-  padding: 25px;
-  width: 400px;
-  height: max-content;
-}
-
-.form-control,
-.add-task {
-  display: flex;
   flex-direction: column;
+  align-items: center;
+  position: relative;
+  height: calc(100vh - 75px);
 }
 
+.add-task {
+  position: absolute;
+  background-color: var(--black-color2);
+  padding: 15px;
+  width: 70%;
+  height: 75px;
+  top: 10px;
+}
+
+.add-task,
 .form-control {
-  margin-top: 15px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
 }
 
 .custom-btn {
@@ -36,16 +31,15 @@
 }
 
 .save-btn {
-  background-color: #b588ff;
-  background-image: linear-gradient(300deg, #b588ff 0%, #c49fff 74%);
+  background-color: var(--purple-color);
   border: none;
   z-index: 1;
   border-radius: 6px;
   outline: none;
   cursor: pointer;
-  height: 40px;
-  margin: 10px 0;
+  height: 50px;
   font-weight: bolder;
+  width: 30%;
 }
 .save-btn:after {
   position: absolute;
@@ -56,11 +50,6 @@
   left: 0;
   z-index: -1;
   border-radius: 6px;
-  background-color: #926bcf;
-  background-image: linear-gradient(315deg, #926bcf 0%, #b287f8 74%);
-  box-shadow: -7px -7px 20px 0px #fff9, -4px -4px 5px 0px #fff9,
-    7px 7px 20px 0px #0002, 4px 4px 5px 0px #0001;
-  transition: all 0.3s ease;
 }
 
 .save-btn:hover:after {
@@ -71,33 +60,34 @@
   top: 2px;
 }
 
-.input-desc,
-.input-title {
-  outline: none;
-  border: none;
-  resize: none;
-  padding: 5px;
-}
-
 .input-title {
   text-align: top;
   height: 50px;
-  margin-bottom: 10px;
-
+  width: 50%;
+  outline: none;
+  border: none;
+  resize: none;
+  padding: 12px 10px;
   color: white;
-  background-color: #404040;
+  background-color: var(--black-color3);
+  font-size: 18px;
+  border: 2px solid var(--black-color1);
 }
 
-.input-desc {
-  height: 100px;
-  margin: 10px 0;
+.tasks-display {
+  position: absolute;
+  top: 100px;
+  width: 70%;
+  height: 90%;
+  overflow-y: scroll;
+  border-top: 1px solid gray;
 }
 
 .task {
-  background-color: #404040;
+  background-color: var(--black-color3);
   padding: 10px;
   margin: 10px 0 20px 0;
-  box-shadow: 0px 4px 6px 1px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 4px 6px 1px rgba(20, 20, 28, 0.3);
   position: relative;
 }
 .title {
@@ -116,13 +106,13 @@
 
 .check-icon {
   cursor: pointer;
-  color: #b588ff;
+  color: var(--blue-color);
   font-size: 30px !important;
 }
 
 .delete-icon {
   cursor: pointer;
-  color: rgb(243, 107, 107);
+  color: var(--red-color);
   font-size: 30px !important;
 }
 

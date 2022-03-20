@@ -1,27 +1,43 @@
 .auth {
-  background-color: #121212;
+  position: relative;
+  height: 100vh;
+  width: 100vw;
+  border: 1px solid red;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.auth h1 {
+  position: absolute;
+  top: 50px;
+}
+
+.auth-wrapper {
   height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100vw;
+  background-color: #ddc;
 }
 .auth-container {
   height: 500px;
   width: 350px;
-  background: gray;
+  background: var(--black-color1);
   overflow: hidden;
+  border: 4px solid var(--black-color2);
 }
 #chk {
   display: none;
 }
-.signup {
+.login {
   position: relative;
   width: 100%;
   height: 100%;
 }
 .auth-container label {
-  color: #fff;
+  color: var(--purple-color);
   font-size: 2.3em;
   justify-content: center;
   display: flex;
@@ -33,7 +49,7 @@
 .auth-input {
   width: 60%;
   height: 40px;
-  background: #e0dede;
+  background: var(--black-color3);
   justify-content: center;
   display: flex;
   margin: 20px auto;
@@ -41,6 +57,10 @@
   border: none;
   outline: none;
   border-radius: 5px;
+  color: white;
+}
+.signup .auth-input {
+  background-color: var(--black-color1);
 }
 .auth-btn {
   width: 60%;
@@ -48,8 +68,7 @@
   margin: 10px auto;
   justify-content: center;
   display: block;
-  color: #fff;
-  background: #573b8a;
+  background: var(--yellow-color);
   font-size: 1em;
   font-weight: bold;
   margin-top: 20px;
@@ -60,26 +79,29 @@
   cursor: pointer;
 }
 .auth-btn:hover {
-  background: #6d44b8;
+  background: var(--blue-color);
 }
-.login {
-  height: 460px;
-  background: #eee;
-  border-radius: 60% / 10%;
-  transform: translateY(-180px);
-  transition: 0.8s ease-in-out;
-}
+
 .login label {
-  color: #573b8a;
+  color: var(--red-color);
   transform: scale(0.6);
 }
 
-#chk:checked ~ .login {
-  transform: translateY(-500px);
-}
 #chk:checked ~ .login label {
   transform: scale(1);
+  color: var(--purple-color);
 }
 #chk:checked ~ .signup label {
   transform: scale(0.6);
+  color: var(--red-color);
+}
+#chk:checked ~ .signup {
+  transform: translateY(-500px);
+}
+.signup {
+  height: 460px;
+  background: var(--black-color3);
+  border-radius: 60% / 10%;
+  transform: translateY(-180px);
+  transition: 0.8s ease-in-out;
 }

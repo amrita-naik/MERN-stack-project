@@ -1,5 +1,5 @@
 .profile {
-  background-color: #282828;
+  background-color: var(--black-color3);
   padding: 15px 20px;
   margin: 0 15px;
   min-height: 200px;

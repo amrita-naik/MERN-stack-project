@@ -1,4 +1,4 @@
-import { Assignment, Chat, Group, Home, LinearScaleOutlined, NoteAdd } from '@material-ui/icons'
+import { AssignmentOutlined, ChatOutlined, GroupOutlined, HomeOutlined, LinearScaleOutlined, NoteAddOutlined } from '@material-ui/icons'
 import { Link } from 'react-router-dom'
 import './sidebar.css'
 
@@ -7,19 +7,19 @@ function NavBar() {
         <div className='sidebar'>
             <LinearScaleOutlined className='icon menu'/>
             <Link to='/'>    
-                <Home className='icon'/>
+                <HomeOutlined className='icon'/>
             </Link>
             <Link to='/people'>    
-                <Group className='icon'/>
+                <GroupOutlined className='icon'/>
             </Link>
             <Link to='/tasks'>    
-                <Assignment className='icon'/>
+                <AssignmentOutlined className='icon'/>
             </Link>
             <Link to='/notes'>    
-                <NoteAdd className='icon'/>
+                <NoteAddOutlined className='icon'/>
             </Link>
             <Link to='/chat'>    
-                <Chat className='icon'/>
+                <ChatOutlined className='icon'/>
             </Link>
             
         </div>

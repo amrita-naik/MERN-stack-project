@@ -1,5 +1,16 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap");
 
+:root {
+  --black-color1: #14141c;
+  --black-color2: #171721;
+  --black-color3: #22222c;
+  --red-color: #ee786c;
+  --blue-color: #19aeff;
+  --yellow-color: #feb95a;
+  --purple-color: #f2c8ee;
+  --green-color: #b8dfa9;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -13,4 +24,25 @@ body {
 
 .app-container {
   display: flex;
+}
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  border-radius: 3px;
+  background-color: #ddc;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: black;
+  border-radius: 2px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #0f0d0d;
 }

@@ -25,6 +25,7 @@ function Tasks() {
         axios.post("/create-task", {text })
           .then((response) => {
             setTasks([...tasks, {text}])
+            setText("")
           })
         
         if(!text){
@@ -35,20 +36,15 @@ function Tasks() {
 
     return (
         <div className='todo-container'>
-            <div className="todo-wrapper">
-                <h2>Add a Task</h2>
                 <AddTask setText={setText} text={text} createTask={createTask}/>
-            </div>
             
-            <div className="todo-wrapper">
-                <div className="tasksDisplay">
+                <div className="tasks-display">
                     <h2>Tasks:</h2>
                     {tasks.map((task) => (
                         <Task  task = {task} key={task._id}
                         tasks={tasks} setTasks={setTasks}/>
                     ))}
-                </div>
-            </div>  
+                </div> 
         </div>
     )
 }

@@ -1,5 +1,5 @@
 .people {
-  background-color: #191919;
+  background-color: var(--black-color2);
   display: flex;
   flex: 8;
   margin-top: 75px;
@@ -13,9 +13,10 @@
 }
 
 .person {
-  background-color: #141414;
+  background-color: var(--black-color3);
   padding: 10px;
   margin-top: 10px;
   font-size: 18px;
   text-transform: capitalize;
+  color: var(--yellow-color);
 }

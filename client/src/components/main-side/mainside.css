@@ -1,5 +1,5 @@
 .main-side {
-  background-color: #121212;
+  background-color: var(--black-color1);
   flex: 1;
   color: white;
   z-index: 20;

@@ -1,5 +1,5 @@
 .home {
-  background-color: #191919;
+  background-color: var(--black-color2);
   display: flex;
   flex: 8;
 }

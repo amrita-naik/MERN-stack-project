@@ -16,8 +16,8 @@ function AddNote({createNote, text, setText, title, setTitle}) {
                         placeholder='Add Text' 
                         value={text}
                         onChange={(e) => setText(e.target.value)}/>
+                    <button className='note-save-btn'>Save Note</button>
                 </div>
-                <input type="submit" value='Save Note'/>
             </form>
         </div>
     )

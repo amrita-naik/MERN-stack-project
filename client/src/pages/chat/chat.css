@@ -8,7 +8,7 @@
 .chat-window {
   width: 70%;
   height: 100%;
-  background-color: #242424;
+  background-color: var(--black-color2);
 }
 
 .chat-body {
@@ -34,7 +34,7 @@
   min-height: 40px;
   min-width: 70px;
   max-width: 400px;
-  background-color: #a278e6;
+  background-color: var(--black-color1);
   border-radius: 5px;
   color: white;
   display: flex;
@@ -59,13 +59,19 @@
 
 #other .message-content {
   justify-content: flex-start;
-  background-color: #121212;
+  background-color: var(--black-color3);
 }
 
-#author {
+#you #author {
   color: white;
   font-size: 14px;
-  color: rgb(170, 99, 7);
+  color: var(--blue-color);
+}
+
+#other #author {
+  color: white;
+  font-size: 14px;
+  color: var(--red-color);
 }
 
 .message-time {
@@ -74,7 +80,7 @@
 }
 
 #time {
-  color: white;
+  color: var(--purple-color);
   font-size: 10px;
   opacity: 0.7;
 }
@@ -96,7 +102,7 @@
   width: 80%;
   border-radius: 7px;
   padding: 0 5px;
-  background-color: #191919;
+  background-color: var(--black-color1);
   border: 2px solid black;
   color: white;
 }
@@ -104,5 +110,10 @@
 .chat-send-btn {
   font-size: 50px !important;
   cursor: pointer;
-  color: #a278e6;
+  color: var(--yellow-color);
+}
+
+.chat-animation {
+  width: 30%;
+  background-color: var(--black-color1);
 }

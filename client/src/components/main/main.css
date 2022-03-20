@@ -2,7 +2,7 @@
   z-index: 20;
   flex: 3;
   color: white;
-  background-color: #191919;
+  background-color: var(--black-color2);
   margin-top: 75px;
 }
 
@@ -12,7 +12,7 @@
 }
 
 .card {
-  background-color: #282828;
+  background-color: var(--black-color3);
   margin: 10px 20px;
   padding: 15px;
   font-size: 18px;

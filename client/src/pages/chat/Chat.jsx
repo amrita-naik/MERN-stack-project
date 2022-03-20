@@ -82,7 +82,11 @@ function Chat({socket, username, room}) {
                     <div onClick={sendMessage}><SendRounded  className='chat-send-btn' /></div>
                 </div>
             </div>
-        </div>
+            <div className="chat-animation">
+                
+
+            </div>
+    </div>
     )
 }
 
