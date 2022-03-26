@@ -26,6 +26,12 @@ function Chat({socket, username, room, users}) {
               new Date(Date.now()).getHours() +
               ":" +
               new Date(Date.now()).getMinutes(),
+            date:   
+                new Date(Date.now()).getDate() +
+                "." +
+                new Date(Date.now()).getMonth() +
+                "." +
+                new Date(Date.now()).getFullYear()
           };
 
           await socket.emit("send_message", messageData);
@@ -42,7 +48,7 @@ function Chat({socket, username, room, users}) {
         socket.on("receive_message", (data) => {
           setMessageList((list) => [...list, data]);
         });
-      }, [socket]);
+      }, );
 
       const handleNotification = () => {
           socket.emit("send_notification", {
@@ -56,6 +62,9 @@ function Chat({socket, username, room, users}) {
         dates.push(dateFormat)
     }
 
+    console.log(messageList)
+    console.log(dates)
+
     return (
         <div className='chat-container'>
             
@@ -63,13 +72,13 @@ function Chat({socket, username, room, users}) {
                 <div className="chat-body">
                     <ScrollToBottom className="message-container">
                         {messageList.map((messageContent) => {
-                            var date = new Date(messageContent.createdAt);
-                            var [day, month, year] = [date.getDate(), date.getMonth(), date.getFullYear()]
-                            var dateFormat = `${day}.${month+1}.${year}`;
+                            // var date = new Date(messageContent.createdAt);
+                            // var [day, month, year] = [date.getDate(), date.getMonth(), date.getFullYear()]
+                            // var dateFormat = `${day}.${month+1}.${year}`;
                             return (
                                 <>
-                                {dates.includes(dateFormat) ? null : <p className='chat-date'>{dateFormat}</p>}  
-                                {pushDate(dateFormat)}
+                                {dates.includes(messageContent.date) ? null : <p className='chat-date'>{messageContent.date}</p>}
+                                {pushDate(messageContent.date)}
                                 <div key={messageContent._id} className="message" id={username === messageContent.author ? "you" : "other"}>
                                     <div className="message-content">
                                         <p id="author">{messageContent.author}</p>

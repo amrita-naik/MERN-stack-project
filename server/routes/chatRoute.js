@@ -6,6 +6,7 @@ router.post('/chats', async (req, res) => {
         author: req.body.author,
         message: req.body.message,
         time: req.body.time,
+        date: req.body.date,
     })
     try {
         const message = await newMessage.save();
