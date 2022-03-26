@@ -3,8 +3,6 @@ import { useState, useEffect } from 'react'
 import AddTask from './AddTask';
 import axios from 'axios'
 import Task from './Task'
-import NavBar from '../../components/navbar/NavBar'
-import SideBar from '../../components/sidebar/SideBar'
 
 
 function Tasks() {
@@ -17,7 +15,6 @@ function Tasks() {
             .then((response) => {
                 setTasks(response.data)
             })
-            console.log(tasks)
     }, []);
 
     const createTask = (e) => {

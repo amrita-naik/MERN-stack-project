@@ -10,6 +10,7 @@ function AddNote({createNote, text, setText, title, setTitle}) {
                         type="text" 
                         placeholder='Add Title' 
                         value={title}
+                        required 
                         onChange={(e) => setTitle(e.target.value)}/>
                     <textarea  className='note-info-input'
                         type="text" 

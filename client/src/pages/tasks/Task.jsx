@@ -24,7 +24,7 @@ const Task = ({task,  tasks,setTasks}) => {
 
 return (
     <div className='task'>
-        <p className={`title ${task.completed ? "checked-task" : ' '}`}>{task.text}</p>
+        <p key={task._id} className={`title ${task.completed ? "checked-task" : ' '}`}>{task.text}</p>
         <div className="task-icons">
             <Check className='check-icon' onClick = {onCheck}/>
             <Delete className='delete-icon'  onClick={() => deleteTask(task._id)}/>

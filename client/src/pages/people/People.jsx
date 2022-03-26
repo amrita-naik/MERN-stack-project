@@ -19,7 +19,7 @@ return (
         <h1>Users:</h1>
         {users.map((user) => {
             return(
-                    <div className='person'>
+                    <div key={user._id} className='person'>
                         <h3 >{user.username}</h3>
                     </div>
             )

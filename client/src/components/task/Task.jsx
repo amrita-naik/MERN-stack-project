@@ -18,7 +18,7 @@ function Task() {
                 <h2>Upcoming Tasks:</h2>
                     {tasks.map((task) => {
                     return (
-                        <div>
+                        <div key={task._id}>
                             <p>{task.text}</p>
                         </div>
                     );

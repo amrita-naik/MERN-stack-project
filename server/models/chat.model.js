@@ -4,7 +4,7 @@ const ChatSchema = new mongoose.Schema({
     author: {type: String, reqiured: true},
     message: {type: String, required: true},
     time: {type: String, required: true}
-}, {collection: "chats"})
+}, {timestamps: true, collection: "chats"})
 
 const ChatModel = mongoose.model("Chat", ChatSchema)
 

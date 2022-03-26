@@ -133,6 +133,10 @@ io.on('connection', (socket) => {
         socket.to(data.room).emit('receive_message', data)
         //console.log(data)
     })
+
+    socket.on('send_notification', ({room, senderName}) => {
+      socket.to(room).emit('get_notification', senderName)
+    })
 })
 //chats
 app.use('/api', chatRoute)

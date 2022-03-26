@@ -43,3 +43,14 @@
   width: 60px;
   font-weight: bolder;
 }
+.notifications {
+  color: black;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  width: 150px;
+  left: -40px;
+  font-size: 14px;
+  background-color: var();
+}

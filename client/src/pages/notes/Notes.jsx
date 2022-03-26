@@ -41,7 +41,7 @@ function Note() {
                 <div className='notes-display'>
                     {notes.map((note) => {
                         return(
-                            <div className='note'>
+                            <div key={note._id} className='note'>
                                 <h3 className='note-title'>{note.title}</h3>
                                 <p className='note-info'>{note.text}</p>
                                 <Delete className='note-delete-icon'  onClick={() => deleteNote(note._id)}/>

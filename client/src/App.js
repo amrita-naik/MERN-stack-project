@@ -9,7 +9,7 @@ import NavBar from './components/navbar/NavBar'
 import SideBar from './components/sidebar/SideBar'
 
 import { io } from "socket.io-client";
-import {useEffect} from 'react'
+import {useEffect, useRef} from 'react'
 import Auth from './pages/auth/Auth';
 
 
@@ -72,6 +72,7 @@ function App() {
   );
   
   let navigate = useNavigate();
+  const logoutRef = useRef(username)
 
   const handleLogin = async (e) => {
 		e.preventDefault();
@@ -85,18 +86,31 @@ function App() {
 		}
 	};
 
+  // useEffect(() => {
+  //   setUsername(" ")
+  // }, [logoutRef])
+
   const handleLogout = async (e) => {
     e.preventDefault()
-    console.log('clicked')
     setUser(null)
+    setUsername("")
+    setPassword("")
+    setEmail("")
   }
+
+  useEffect(() => {
+    axios.get('/get-users')
+        .then(response => {
+            setUsers(response.data)
+        })
+}, [])
 
   socket.emit("join_room", room)
 
   return (
     <div className="App">
       <div className="app-container">
-        {user && <NavBar handleLogout={handleLogout} />}
+        {user && <NavBar handleLogout={handleLogout} user={user} socket={socket} />}
         {user && <SideBar />}
         <Routes>
           {!user &&
@@ -106,7 +120,7 @@ function App() {
           <Route path='/people' element={user ? <People /> : <Navigate replace to='/auth' /> } />   
           <Route path='/notes' element={user ? <Notes /> : <Navigate replace to='/auth' /> } />   
           <Route path='/tasks' element={user ? <Tasks /> : <Navigate replace to='/auth' /> } />   
-          <Route path='/chat' element={user ? <Chat socket={socket} setUsername={setUsername} room={room} username={username} /> : <Navigate replace to='/auth' /> } />   
+          <Route path='/chat' element={user ? <Chat socket={socket} setUsername={setUsername} users={users} room={room} username={username} /> : <Navigate replace to='/auth' /> } />   
           {user &&     
           <>
             <Route exact path='/' element={ <Home username={username} /> } />
