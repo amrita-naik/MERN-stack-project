@@ -1,4 +1,4 @@
-import { AssignmentOutlined, ChatOutlined, GroupOutlined, HomeOutlined, LinearScaleOutlined, NoteAddOutlined } from '@material-ui/icons'
+import { AssignmentOutlined, ChatOutlined, GroupOutlined, HomeOutlined, LinearScaleOutlined, NoteAddOutlined, Attachment } from '@material-ui/icons'
 import { Link } from 'react-router-dom'
 import './sidebar.css'
 
@@ -17,6 +17,9 @@ function NavBar() {
             </Link>
             <Link to='/notes'>    
                 <NoteAddOutlined className='icon'/>
+            </Link>
+            <Link to='/files'>    
+                <Attachment className='icon'/>
             </Link>
             <Link to='/chat'>    
                 <ChatOutlined className='icon'/>

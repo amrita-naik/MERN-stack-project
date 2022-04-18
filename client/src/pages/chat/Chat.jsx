@@ -14,7 +14,10 @@ function Chat({socket, username, room, users}) {
             .then(response => {
                 setMessageList(response.data)
             })
-    }, [])
+    },)
+
+    var date = new Date()
+    var[day, month, year] = [date.getDate(), date.getMonth()+1, date.getFullYear()]
 
     const sendMessage = async () => {
         if (currentMessage !== "") {
@@ -23,17 +26,16 @@ function Chat({socket, username, room, users}) {
             author: username,
             message: currentMessage,
             time:
-              new Date(Date.now()).getHours() +
+              date.getHours() +
               ":" +
-              new Date(Date.now()).getMinutes(),
+              date.getMinutes(),
             date:   
-                new Date(Date.now()).getDate() +
+                day+
                 "." +
-                new Date(Date.now()).getMonth() +
+                month +
                 "." +
-                new Date(Date.now()).getFullYear()
+                year
           };
-
           await socket.emit("send_message", messageData);
 
           axios.post('/chats', messageData)
@@ -48,7 +50,7 @@ function Chat({socket, username, room, users}) {
         socket.on("receive_message", (data) => {
           setMessageList((list) => [...list, data]);
         });
-      }, );
+      }, [socket]);
 
       const handleNotification = () => {
           socket.emit("send_notification", {
@@ -58,12 +60,9 @@ function Chat({socket, username, room, users}) {
       }
       
     const dates =[];
-    const pushDate = (dateFormat) => {
-        dates.push(dateFormat)
+    const pushDate = (messageDate) => {
+        dates.push(messageDate)
     }
-
-    console.log(messageList)
-    console.log(dates)
 
     return (
         <div className='chat-container'>
@@ -72,9 +71,6 @@ function Chat({socket, username, room, users}) {
                 <div className="chat-body">
                     <ScrollToBottom className="message-container">
                         {messageList.map((messageContent) => {
-                            // var date = new Date(messageContent.createdAt);
-                            // var [day, month, year] = [date.getDate(), date.getMonth(), date.getFullYear()]
-                            // var dateFormat = `${day}.${month+1}.${year}`;
                             return (
                                 <>
                                 {dates.includes(messageContent.date) ? null : <p className='chat-date'>{messageContent.date}</p>}

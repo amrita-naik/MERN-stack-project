@@ -5,6 +5,7 @@ import People from './pages/people/People';
 import Notes from './pages/notes/Notes';
 import Tasks from './pages/tasks/Tasks'
 import Chat from './pages/chat/Chat';
+import File from './pages/files/File';
 import NavBar from './components/navbar/NavBar'
 import SideBar from './components/sidebar/SideBar'
 
@@ -120,6 +121,7 @@ function App() {
           <Route path='/people' element={user ? <People /> : <Navigate replace to='/auth' /> } />   
           <Route path='/notes' element={user ? <Notes /> : <Navigate replace to='/auth' /> } />   
           <Route path='/tasks' element={user ? <Tasks /> : <Navigate replace to='/auth' /> } />   
+          <Route path='/files' element={user ? <File /> : <Navigate replace to='/auth' /> } />   
           <Route path='/chat' element={user ? <Chat socket={socket} setUsername={setUsername} users={users} room={room} username={username} /> : <Navigate replace to='/auth' /> } />   
           {user &&     
           <>
@@ -127,6 +129,7 @@ function App() {
             <Route path='/people' element={<People />}/>
             <Route path='/notes' element={<Notes />}/>
             <Route path='/tasks' element={<Tasks />}/>
+            <Route path='/files' element={<File />}/>
             <Route path='/chat' element={<Chat socket={socket} room={room} username={username}/>}/> 
           </>
           }

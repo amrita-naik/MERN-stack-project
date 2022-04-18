@@ -1,5 +1,6 @@
 const express = require('express')
 const app = express()
+const multer = require('multer')
 
 app.use(express.json())
 
@@ -14,6 +15,7 @@ const CryptoJS = require("crypto-js");
 const TaskModel = require('./models/task.model')
 const NoteModel = require('./models/note.model')
 const UserModel = require('./models/user.model')
+const FileModel = require('./models/file.model')
 
 const authRoute = require('./routes/authRoute')
 const chatRoute = require('./routes/chatRoute')
@@ -29,6 +31,19 @@ mongoose.connect(process.env.DB_URL, {
 
 const server = http.createServer(app)
 
+const multerStorage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "public");
+  },
+  filename: (req, file, cb) => {
+    const ext = file.mimetype.split("/")[1];
+    cb(null, `files/admin-${file.fieldname}-${Date.now()}.${ext}`);
+  },
+});
+
+const upload = multer({
+  storage: multerStorage,
+});
 //tasks
 app.get('/api/get-tasks', (req, res) => {
     TaskModel.find({}, (err, result) => {
@@ -109,6 +124,38 @@ app.get('/api/get-users', (req, res) => {
       }
   })
 })
+
+app.post('/api/upload', upload.single("myFile"), async (req, res) => {
+  try {
+    const newFile = await FileModel.create({
+      name: req.file.filename,
+    });
+    res.status(200).json({
+      status: "success",
+      message: "File created successfully!!",
+    });
+  } catch (error) {
+    res.json({
+      error,
+    });
+    console.log(error)
+  }
+})
+
+app.get("/api/getFiles", async (req, res) => {
+  try {
+    const files = await FileModel.find();
+    res.status(200).json({
+      status: "success",
+      files,
+    });
+  } catch (error) {
+    res.json({
+      status: "Fail",
+      error,
+    });
+  }
+});
 
 //sign up
 app.use('/api', authRoute)

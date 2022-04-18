@@ -1,0 +1,11 @@
+.file{
+    background-color: var(--black-color2);
+    display: flex;
+    flex: 8;
+    margin-top: 75px;
+    color: white;
+}
+
+.file button{
+    height: 25px;
+}
