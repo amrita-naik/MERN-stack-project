@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const fileSchema = new mongoose.Schema({
+const FileSchema = new mongoose.Schema({
     createdAt:{
         type: Date,
         default: Date.now
@@ -11,6 +11,6 @@ const fileSchema = new mongoose.Schema({
     }
 })
 
-const FileModel = mongoose.model("File", fileSchema) 
+const FileModel = mongoose.model("File", FileSchema) 
 
 module.exports = FileModel

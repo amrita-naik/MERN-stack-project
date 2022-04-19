@@ -37,9 +37,9 @@ function Auth({room, handleLogin, setUser, username, setUsername, email, setEmai
           <div className="signup">
             <form onSubmit={createUser}>
               <label htmlFor="chk" >Sign up</label>
-              <input className='auth-input' type="text" placeholder="User name" value={username} onChange = {(e) => setUsername(e.target.value)}/>
-              <input className='auth-input' type="email" placeholder="Email" value={email} onChange = {(e) => setEmail(e.target.value)}/>
-              <input className='auth-input' type="password" placeholder="Password" value={password} onChange = {(e) => setPassword(e.target.value)} />
+              <input className='auth-input' type="text" placeholder="username" value={username} onChange = {(e) => setUsername(e.target.value)}/>
+              <input className='auth-input' type="email" placeholder="email" value={email} onChange = {(e) => setEmail(e.target.value)}/>
+              <input className='auth-input' type="password" placeholder="password" value={password} onChange = {(e) => setPassword(e.target.value)} />
               <button className='auth-btn'>Sign up</button>
             </form>
           </div>

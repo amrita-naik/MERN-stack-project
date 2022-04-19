@@ -30,10 +30,11 @@ mongoose.connect(process.env.DB_URL, {
     .then(console.log('mongo connected'))
 
 const server = http.createServer(app)
+//app.use(express.static(`${__dirname}/public`));
 
 const multerStorage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "public");
+    cb(null, "../client/public");
   },
   filename: (req, file, cb) => {
     const ext = file.mimetype.split("/")[1];
@@ -125,7 +126,7 @@ app.get('/api/get-users', (req, res) => {
   })
 })
 
-app.post('/api/upload', upload.single("myFile"), async (req, res) => {
+app.post('/api/upload', upload.single("File"), async (req, res) => {
   try {
     const newFile = await FileModel.create({
       name: req.file.filename,
